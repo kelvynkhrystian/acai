@@ -1,0 +1,221 @@
+/* ===================================================
+   SEÇÃO: QUALIDADE E SABOR DE VERDADE (NOSSA ESSÊNCIA)
+   =================================================== */
+
+.essencia {
+  position: relative;
+  z-index: 2;
+  background-color: #FAF6EE;
+  padding: 8rem 2rem 10.5rem;
+  color: #1a042e;
+  overflow: visible;
+  scroll-margin-top: 80px;
+}
+
+.essencia__container {
+  max-width: 1380px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  align-items: center;
+  gap: 5rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── Lado Esquerdo (Foto Bem Maior com Anel Dourado) ─── */
+.essencia__left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.essencia__img-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 680px; /* Bem maior, preenchendo com impacto */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Anel / Círculo Dourado da Referência Visual */
+.essencia__decor-ring {
+  position: absolute;
+  width: 82%;
+  height: 82%;
+  border-radius: 50%;
+  border: 4px solid #FFB800;
+  top: 9%;
+  left: 9%;
+  pointer-events: none;
+  z-index: 0;
+  box-shadow: 0 0 35px rgba(255, 184, 0, 0.35);
+  opacity: 0.85;
+}
+
+.essencia__img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 25px 50px rgba(44, 12, 71, 0.35));
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.essencia__img-wrap:hover .essencia__img {
+  transform: scale(1.03);
+}
+
+/* ─── Lado Direito ─── */
+.essencia__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.essencia__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6B21A8;
+  margin-bottom: 1.25rem;
+}
+
+.essencia__line {
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background-color: #6B21A8;
+  border-radius: 2px;
+}
+
+.essencia__title {
+  font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.8rem, 4.4vw, 4.2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  color: #1a042e;
+  margin-bottom: 1.4rem;
+}
+
+.essencia__title-purple {
+  color: #6B21A8;
+}
+
+.essencia__desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: rgba(38, 4, 66, 0.82);
+  margin-bottom: 2.5rem;
+  max-width: 480px;
+}
+
+/* ─── Os 3 Badges de Valor ─── */
+.essencia__badges {
+  display: flex;
+  gap: 2.2rem;
+  width: 100%;
+}
+
+.essencia__badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+}
+
+.essencia__badge-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.essencia__badge-icon--green {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.essencia__badge-icon--purple {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+}
+
+.essencia__badge-icon--gold {
+  background-color: #fef9c3;
+  color: #a16207;
+}
+
+.essencia__badge-item:hover .essencia__badge-icon {
+  transform: translateY(-4px) scale(1.08);
+}
+
+.essencia__badge-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a042e;
+  line-height: 1.35;
+}
+
+/* ─── Onda de Transição para o Delivery (roxo escuro) ─── */
+.essencia__wave-bottom {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.essencia__wave-bottom svg {
+  display: block;
+  width: 100%;
+  height: 60px;
+}
+
+/* ===================================================
+   RESPONSIVIDADE
+   =================================================== */
+
+@media (max-width: 900px) {
+  .essencia {
+    padding: 6rem 1.5rem 8rem;
+  }
+
+  .essencia__container {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    text-align: center;
+  }
+
+  .essencia__right {
+    align-items: center;
+  }
+
+  .essencia__img-wrap {
+    max-width: 440px;
+  }
+
+  .essencia__badges {
+    justify-content: center;
+    gap: 1.5rem;
+  }
+}

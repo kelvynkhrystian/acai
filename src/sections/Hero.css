@@ -1,0 +1,423 @@
+/* ===================================================
+   HERO SECTION — Design Desktop & Mobile Fiel à Referência
+   =================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #140222;
+}
+
+/* ─── Canvas de Alta Resolução (78 frames 1080p) ─── */
+.hero__canvas-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+}
+
+/* ─── Camada de Iluminação e Vinheta (Suave e Nítida) ─── */
+.hero__darken-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 0%,
+    rgba(16, 2, 28, 0.25) 65%,
+    rgba(10, 1, 18, 0.75) 100%
+  );
+}
+
+/* ===================================================
+   1. VISÃO DESKTOP
+   =================================================== */
+
+.hero__desktop-view {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero__frame {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  padding: 100px 3.5rem 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* Bloco Esquerdo Desktop */
+.hero__left-box {
+  flex: 0 0 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hero__intro {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.1vw, 2.2rem);
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.15rem;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.7);
+}
+
+.hero__acai-title {
+  font-family: 'Anton', 'Bebas Neue', sans-serif;
+  font-weight: 900;
+  font-size: clamp(5.8rem, 9.8vw, 10.5rem);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  color: #FFB800;
+  text-shadow: 0 6px 30px rgba(0, 0, 0, 0.6);
+  margin-bottom: 1.25rem;
+  margin-left: -4px;
+}
+
+.hero__left-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  line-height: 1.42;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+.hero__left-desc strong {
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* Bloco Direito Desktop */
+.hero__right-box {
+  flex: 0 0 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hero__cremoso-title {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Anton', 'Bebas Neue', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.4rem, 4vw, 4.3rem);
+  line-height: 0.96;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+  margin-bottom: 1.4rem;
+}
+
+.hero__highlight-yellow {
+  color: #FFB800;
+}
+
+.hero__right-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+  margin-bottom: 1.75rem;
+}
+
+.hero__cta-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.85rem;
+  border-radius: 9999px;
+  background-color: #22c55e;
+  color: #ffffff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.45);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  white-space: nowrap;
+}
+
+.hero__cta-green:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 35px rgba(34, 197, 94, 0.65);
+}
+
+.hero__cta-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* ===================================================
+   2. VISÃO MOBILE (Exata à imagem de referência)
+   =================================================== */
+
+.hero__mobile-view {
+  display: none; /* Oculto no Desktop */
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 100dvh;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5.8rem 1.4rem 2rem;
+  box-sizing: border-box;
+}
+
+/* ─── Topo do Mobile (Frase Principal) ─── */
+.hero__mobile-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 380px;
+}
+
+.hero__mobile-intro {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  margin-bottom: -0.1rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+
+.hero__mobile-title-wrap {
+  position: relative;
+  display: inline-block;
+  margin-top: -0.2rem;
+}
+
+.hero__mobile-cremoso {
+  font-family: 'Anton', 'Bebas Neue', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3.2rem, 14vw, 4.4rem);
+  line-height: 0.95;
+  color: #FFB800;
+  letter-spacing: 0.02em;
+  text-shadow: 0 6px 25px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 184, 0, 0.45);
+  margin: 0;
+}
+
+/* 3 Raios Amarelos Decorativos no Canto Superior Direito de CREMOSO */
+.hero__mobile-rays {
+  position: absolute;
+  top: -8px;
+  right: -24px;
+  display: flex;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.hero__mobile-ray {
+  display: block;
+  width: 3.5px;
+  background: #FFB800;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(255, 184, 0, 0.8);
+}
+
+.hero__mobile-ray--1 {
+  height: 13px;
+  transform: rotate(-30deg);
+}
+
+.hero__mobile-ray--2 {
+  height: 18px;
+  margin-top: -4px;
+}
+
+.hero__mobile-ray--3 {
+  height: 13px;
+  transform: rotate(30deg);
+}
+
+.hero__mobile-regiao {
+  font-family: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 7vw, 2.2rem);
+  color: #ffffff;
+  margin-top: -0.25rem;
+  margin-bottom: 0.65rem;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9);
+}
+
+.hero__mobile-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 310px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+
+/* ─── Base do Mobile (Os 2 Botões e Dots) ─── */
+.hero__mobile-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 360px;
+  gap: 0.85rem;
+  margin-top: auto;
+}
+
+/* Botão 1: Peça agora no WhatsApp */
+.hero__mobile-btn-whatsapp {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+  padding: 0.95rem 1.35rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(34, 197, 94, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero__mobile-btn-whatsapp:active {
+  transform: scale(0.98);
+}
+
+.hero__mobile-btn-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero__mobile-chevron {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Botão 2: Ver cardápio */
+.hero__mobile-btn-cardapio {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: rgba(18, 2, 30, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  color: #ffffff;
+  padding: 0.9rem 1.35rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.hero__mobile-btn-cardapio:active {
+  transform: scale(0.98);
+}
+
+.hero__mobile-bowl-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* 3 Dots de Paginação Decorativos */
+.hero__mobile-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding-top: 0.35rem;
+}
+
+.hero__mobile-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transition: background 0.3s ease;
+}
+
+.hero__mobile-dot--active {
+  background: #FFB800;
+  box-shadow: 0 0 8px rgba(255, 184, 0, 0.8);
+}
+
+/* ===================================================
+   RESPONSIVIDADE (Breakpoints)
+   =================================================== */
+
+@media (max-width: 1100px) {
+  .hero__frame {
+    padding: 100px 2rem 40px;
+  }
+  .hero__left-box,
+  .hero__right-box {
+    flex: 0 0 320px;
+  }
+}
+
+/* ATIVAÇÃO DO NOVO HERO MOBILE */
+@media (max-width: 900px) {
+  .hero {
+    min-height: 100dvh;
+    padding: 0;
+  }
+
+  /* Oculta layout lateral desktop e exibe o mobile vertical */
+  .hero__desktop-view {
+    display: none !important;
+  }
+
+  .hero__mobile-view {
+    display: flex !important;
+  }
+
+  /* Iluminação nítida: centro claro e vibrante para o açaí */
+  .hero__darken-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(20, 2, 34, 0.65) 0%,
+      rgba(20, 2, 34, 0.12) 28%,
+      transparent 50%,
+      rgba(20, 2, 34, 0.2) 75%,
+      rgba(20, 2, 34, 0.85) 100%
+    );
+  }
+}

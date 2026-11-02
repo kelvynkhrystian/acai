@@ -1,0 +1,111 @@
+/* ===== RESET & BASE ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Inter', 'Montserrat', sans-serif;
+  background-color: #140222;
+  color: #fff;
+  overflow-x: hidden;
+  width: 100%;
+  line-height: 1.6;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #1a0a2e;
+}
+::-webkit-scrollbar-thumb {
+  background: #6b21a8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9333ea;
+}
+
+/* ===== UTILITY ===== */
+.section-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: rgba(255,255,255,0.7);
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+}
+
+.yellow-text {
+  color: #FFD700;
+}
+
+.green-text {
+  color: #22c55e;
+}
+
+/* ===== WHATSAPP BUTTON ===== */
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  white-space: nowrap;
+}
+
+.btn-whatsapp:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+}
+
+.btn-whatsapp svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ===== VISIBILITY FOR GSAP ===== */
+.gsap-hidden {
+  opacity: 0;
+  visibility: hidden;
+}

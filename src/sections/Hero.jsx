@@ -68,30 +68,12 @@ export default function Hero() {
       const iw = imgA.naturalWidth
       const ih = imgA.naturalHeight
 
-      const isMobile = w <= 900
-      let scale
-      let dx
-      let dy
-
-      if (isMobile) {
-        // No mobile: escala calculada para enquadrar o copo perfeitamente no centro sem ficar gigante
-        scale = Math.min(w / iw, h / ih) * 1.48
-        const dw = iw * scale
-        const dh = ih * scale
-        dx = (w - dw) / 2
-        // Ajuste vertical sutil para centrar perfeitamente entre os textos de cima e botões de baixo
-        dy = (h - dh) / 2 + 10
-      } else {
-        // No desktop: modo cover cinematográfico
-        scale = Math.max(w / iw, h / ih)
-        const dw = iw * scale
-        const dh = ih * scale
-        dx = (w - dw) / 2
-        dy = (h - dh) / 2
-      }
-
+      // Modo cover cinematográfico completo (preenche 100% da tela)
+      const scale = Math.max(w / iw, h / ih)
       const dw = iw * scale
       const dh = ih * scale
+      const dx = (w - dw) / 2
+      const dy = (h - dh) / 2
 
       // Desenha frame base
       ctx.drawImage(imgA, dx, dy, dw, dh)
@@ -286,13 +268,6 @@ export default function Hero() {
             <BowlIcon />
             <span>Ver cardápio</span>
           </a>
-
-          {/* 3 Dots de Paginação Decorativos */}
-          <div className="hero__mobile-dots" aria-hidden="true">
-            <span className="hero__mobile-dot" />
-            <span className="hero__mobile-dot hero__mobile-dot--active" />
-            <span className="hero__mobile-dot" />
-          </div>
 
         </div>
 

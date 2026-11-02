@@ -10,7 +10,6 @@ export default function AcaiFlight3D() {
   const cupRef = useRef(null)
 
   useEffect(() => {
-    // Aguarda o carregamento e renderização dos elementos do DOM
     const timer = setTimeout(() => {
       const sourceEl = document.getElementById('cardapio-acai-source')
       const targetEl = document.getElementById('personalize-acai-target')
@@ -25,7 +24,6 @@ export default function AcaiFlight3D() {
       let st = null
 
       const setupFlight = () => {
-        // Limpa animações anteriores caso seja recalculo de resize
         if (st) st.kill()
         if (tl) tl.kill()
 
@@ -40,10 +38,10 @@ export default function AcaiFlight3D() {
         const endX = targetRect.left + targetRect.width / 2
         const endY = targetRect.top + scrollY + targetRect.height / 2
 
-        // Razão de escala entre o cardápio (~220px) e o palco do Personalize (~520px a 620px)
-        const scaleFactor = Math.min(Math.max(targetRect.width / (sourceRect.width || 1), 1.6), 2.6)
+        // Escala proporcional elegante (cerca da metade da anterior, sem ficar gigante)
+        const scaleFactor = Math.min(Math.max(targetRect.width / (sourceRect.width || 1), 1.08), 1.25)
 
-        // Posiciona o container inicial no ponto do Card 2
+        // Posiciona no Card 1
         gsap.set(cupRef.current, {
           left: startX,
           top: startY,
@@ -58,46 +56,37 @@ export default function AcaiFlight3D() {
           transformOrigin: '50% 50%',
         })
 
-        // Timeline de voo 3D conectando as duas seções
+        // Timeline de voo 3D suave com rotação no mesmo eixo vertical (Y)
         tl = gsap.timeline({
           paused: true,
           defaults: { ease: 'power1.inOut' },
         })
 
-        // Trajetória cinemática em arco com rotação nos 3 eixos espaciais (X, Y, Z)
         tl.to(cupRef.current, {
           left: endX,
           top: endY,
           scale: scaleFactor,
-          rotationY: 34, // Vira em 3D mostrando volume
-          rotationZ: 14, // Inclinação dinâmica de velocidade no ar
-          rotationX: -10, // Leve ângulo superior mostrando morangos
-          filter: 'drop-shadow(0 45px 55px rgba(0, 0, 0, 0.75))',
-          duration: 0.7,
+          rotationY: 360, // Gira 360° em 3D no próprio eixo vertical
+          rotationZ: 0,   // Mantém o eixo reto e estável
+          rotationX: 0,
+          filter: 'drop-shadow(0 25px 40px rgba(0, 0, 0, 0.65))',
+          duration: 1,
           ease: 'power2.inOut',
         })
-        .to(cupRef.current, {
-          rotationY: 0, // Alinha de volta ao chegar no palco
-          rotationZ: 0,
-          rotationX: 0,
-          filter: 'drop-shadow(0 25px 45px rgba(0, 0, 0, 0.7))',
-          duration: 0.3,
-          ease: 'power2.out',
-        })
 
-        // ScrollTrigger com scrub contínuo de 1.2 segundos para física natural
+        // Ativa um pouco depois que o cardápio já passou do centro da tela
         st = ScrollTrigger.create({
           trigger: '#cardapio',
-          start: 'top 20%', // Inicia quando o Cardápio está bem visível
+          start: 'center 42%', // Inicia suavemente quando o cardápio já passou um pouco do centro
           endTrigger: '#promocoes',
-          end: 'top 20%', // Termina quando o Personalize assume a tela
+          end: 'center 50%',  // Finaliza suavemente com o Personalize no centro
           scrub: 1.2,
           animation: tl,
           onUpdate: (self) => {
             const p = self.progress
 
-            // Passagem de bastão: oculta o copo estático no card e acende o copo 3D voador
-            if (p > 0.03 && p < 0.96) {
+            // Transição invisível: esconde o copo do card e acende o copo 3D viajante
+            if (p > 0.03 && p < 0.97) {
               if (sourceImg) sourceImg.style.opacity = '0'
               if (targetImg) targetImg.style.opacity = '0'
               gsap.set(cupRef.current, { opacity: 1 })
@@ -105,7 +94,7 @@ export default function AcaiFlight3D() {
               if (sourceImg) sourceImg.style.opacity = '1'
               if (targetImg) targetImg.style.opacity = '0'
               gsap.set(cupRef.current, { opacity: 0 })
-            } else if (p >= 0.96) {
+            } else if (p >= 0.97) {
               if (sourceImg) sourceImg.style.opacity = '0'
               if (targetImg) targetImg.style.opacity = '1'
               gsap.set(cupRef.current, { opacity: 0 })
@@ -116,7 +105,6 @@ export default function AcaiFlight3D() {
 
       setupFlight()
 
-      // Recalcula posições caso o usuário mude o tamanho da tela
       const handleResize = () => {
         setupFlight()
       }
@@ -139,7 +127,7 @@ export default function AcaiFlight3D() {
     <div className="acai-flight-container" ref={containerRef} aria-hidden="true">
       <div className="acai-flight-cup" ref={cupRef}>
         <img
-          src="/products/acai2.png"
+          src="/products/acai1.png"
           alt=""
           className="acai-flight-img"
         />

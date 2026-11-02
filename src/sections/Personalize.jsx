@@ -129,15 +129,15 @@ export default function Personalize() {
             <span className="personalize__ray personalize__ray--3" />
           </div>
 
-          {/* Copo de Açaí que recebe o voo 3D do Cardápio (fica ATRÁS dos ícones) */}
+          {/* Copo de Açaí Tradicional que recebe o voo 3D do Cardápio (fica ATRÁS dos ícones) */}
           <div
             className="personalize__bowl-wrap"
             id="personalize-acai-target"
             ref={bowlRef}
           >
             <img
-              src="/products/acai2.png"
-              alt="Açaí Morango com Chocolate Especial"
+              src="/products/acai1.png"
+              alt="Açaí Tradicional"
               id="personalize-acai-img"
               className="personalize__bowl-img"
             />

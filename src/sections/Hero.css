@@ -357,42 +357,6 @@
   flex-shrink: 0;
 }
 
-/* 3 Dots de Paginação Decorativos */
-.hero__mobile-dots {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  padding-top: 0.35rem;
-}
-
-.hero__mobile-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.35);
-  transition: background 0.3s ease;
-}
-
-.hero__mobile-dot--active {
-  background: #FFB800;
-  box-shadow: 0 0 8px rgba(255, 184, 0, 0.8);
-}
-
-/* ===================================================
-   RESPONSIVIDADE (Breakpoints)
-   =================================================== */
-
-@media (max-width: 1100px) {
-  .hero__frame {
-    padding: 100px 2rem 40px;
-  }
-  .hero__left-box,
-  .hero__right-box {
-    flex: 0 0 320px;
-  }
-}
-
 /* ATIVAÇÃO DO NOVO HERO MOBILE */
 @media (max-width: 900px) {
   .hero {
@@ -409,15 +373,13 @@
     display: flex !important;
   }
 
-  /* Iluminação nítida: centro claro e vibrante para o açaí */
+  /* Camada escurecida cinematográfica para contrastar com as frases e botões */
   .hero__darken-overlay {
-    background: linear-gradient(
-      180deg,
-      rgba(20, 2, 34, 0.65) 0%,
-      rgba(20, 2, 34, 0.12) 28%,
-      transparent 50%,
-      rgba(20, 2, 34, 0.2) 75%,
-      rgba(20, 2, 34, 0.85) 100%
-    );
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(16, 2, 28, 0.45) 0%,
+      rgba(14, 1, 24, 0.75) 60%,
+      rgba(8, 0, 15, 0.94) 100%
+    ) !important;
   }
 }

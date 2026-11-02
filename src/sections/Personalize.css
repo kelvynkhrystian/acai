@@ -157,12 +157,12 @@
   transform: rotate(30deg);
 }
 
-/* Tigela com transparência degradê no terço inferior (fica ATRÁS dos ícones) */
+/* Copo com transparência degradê no terço inferior (fica ATRÁS dos ícones) */
 .personalize__bowl-wrap {
   position: relative;
   z-index: 1; /* Fica atrás dos ícones */
   width: 100%;
-  max-width: 660px; /* Bem maior */
+  max-width: 350px; /* Reduzido pela metade para proporção harmônica perfeita */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -315,7 +315,7 @@
   }
 
   .personalize__bowl-wrap {
-    max-width: 440px;
+    max-width: 270px;
   }
 
   .personalize__steps {

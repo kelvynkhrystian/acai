@@ -144,12 +144,12 @@ export default function Cardapio() {
                 {/* Copo de Açaí saindo para fora do card no topo */}
                 <div
                   className="destaque-card__img-wrap"
-                  id={item.id === 'morango' ? 'cardapio-acai-source' : undefined}
+                  id={item.id === 'tradicional' ? 'cardapio-acai-source' : undefined}
                 >
                   <img
                     src={item.imagem}
                     alt={item.nome}
-                    id={item.id === 'morango' ? 'cardapio-acai-img' : undefined}
+                    id={item.id === 'tradicional' ? 'cardapio-acai-img' : undefined}
                     className="destaque-card__img"
                   />
                 </div>

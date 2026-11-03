@@ -180,9 +180,11 @@ export default function AcaiFlight3D() {
     <div className="acai-flight-container" aria-hidden="true">
       <div className="acai-flight-cup" ref={flightWrapRef}>
         <img
-          src="/products/acai1.png"
+          src="/products/acai1.webp"
           alt="Açaí Tradicional"
           className="acai-flight-img"
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </div>

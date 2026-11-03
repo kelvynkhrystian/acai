@@ -71,9 +71,13 @@ export default function Delivery() {
         <div className="delivery__left" ref={leftRef} style={{ opacity: 0 }}>
           <div className="delivery__img-wrap">
             <img
-              src="/sections/site3.png"
+              src="/sections/site3.webp"
               alt="Açaí City Delivery"
               className="delivery__img"
+              loading="lazy"
+              decoding="async"
+              width="520"
+              height="520"
             />
           </div>
         </div>

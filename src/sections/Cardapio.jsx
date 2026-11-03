@@ -13,7 +13,7 @@ const PRODUTOS = [
     nome: 'Tradicional',
     descricao: 'Açaí cremoso com banana e granola.',
     preco: 'A partir de R$ 14,90',
-    imagem: '/products/acai1.png',
+    imagem: '/products/acai1.webp',
     badge: null,
   },
   {
@@ -21,7 +21,7 @@ const PRODUTOS = [
     nome: 'Morango com Chocolate',
     descricao: 'Açaí, morango, chocolate e granola.',
     preco: 'A partir de R$ 17,90',
-    imagem: '/products/acai2.png',
+    imagem: '/products/acai2.webp',
     badge: null,
   },
   {
@@ -29,7 +29,7 @@ const PRODUTOS = [
     nome: 'Especial da City',
     descricao: 'Açaí, confeitos, chocolate, banana e granola.',
     preco: 'A partir de R$ 19,90',
-    imagem: '/products/acai3.png',
+    imagem: '/products/acai3.webp',
     badge: null,
   },
   {
@@ -37,7 +37,7 @@ const PRODUTOS = [
     nome: 'Tropical',
     descricao: 'Açaí, manga, coco ralado e granola.',
     preco: 'A partir de R$ 17,90',
-    imagem: '/products/acai4.png',
+    imagem: '/products/acai4.webp',
     badge: null,
   },
 ]
@@ -150,6 +150,10 @@ export default function Cardapio() {
                     alt={item.nome}
                     id={item.id === 'tradicional' ? 'cardapio-acai-img' : undefined}
                     className="destaque-card__img"
+                    loading="lazy"
+                    decoding="async"
+                    width="280"
+                    height="340"
                   />
                 </div>
 

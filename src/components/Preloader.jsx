@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import logo2 from '../assets/logo2.png'
+import logo2 from '../assets/logo2.webp'
 import './Preloader.css'
 
 export default function Preloader({ onStartExit, onComplete, bufferReady = true }) {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 900
   const [progress, setProgress] = useState(0)
-  const [isFinished, setIsFinished] = useState(false)
+  const [isFinished, setIsFinished] = useState(isMobile)
   const preloaderRef = useRef(null)
   const contentRef = useRef(null)
   const hasTriggeredExitRef = useRef(false)
@@ -17,7 +18,15 @@ export default function Preloader({ onStartExit, onComplete, bufferReady = true 
   }, [bufferReady])
 
   useEffect(() => {
-    // Trava o scroll da página durante o carregamento
+    // No mobile, remove totalmente o carregamento pois o vídeo não é utilizado
+    if (window.innerWidth < 900) {
+      if (onStartExit) onStartExit()
+      if (onComplete) onComplete()
+      setIsFinished(true)
+      return
+    }
+
+    // Trava o scroll da página durante o carregamento de desktop
     document.body.style.overflow = 'hidden'
     document.documentElement.style.overflow = 'hidden'
 
@@ -33,8 +42,7 @@ export default function Preloader({ onStartExit, onComplete, bufferReady = true 
       // Calcula o progresso baseado no tempo (0 a 1)
       let rawProgress = Math.min(elapsed / DURATION, 1)
 
-      // Se o tempo de 2s terminou mas o buffer do vídeo ainda está carregando em conexão móvel,
-      // segura em 96% até os frames estarem prontos ou atingir o timeout de segurança
+      // Se o tempo de 2s terminou mas o buffer do vídeo ainda está carregando, segura em 96%
       if (rawProgress >= 1 && !bufferReadyRef.current && elapsed < MAX_WAIT_TIMEOUT) {
         rawProgress = 0.96
       }

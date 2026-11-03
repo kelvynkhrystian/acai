@@ -58,9 +58,13 @@ export default function SobreNos() {
           <div className="essencia__img-wrap">
             <div className="essencia__decor-ring" aria-hidden="true" />
             <img
-              src="/sections/site1.png"
+              src="/sections/site1.webp"
               alt="Frutos frescos de açaí artesanal"
               className="essencia__img"
+              loading="lazy"
+              decoding="async"
+              width="500"
+              height="500"
             />
           </div>
         </div>

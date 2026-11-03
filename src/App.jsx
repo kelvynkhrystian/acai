@@ -10,8 +10,9 @@ import Footer from './sections/Footer'
 import AcaiFlight3D from './components/AcaiFlight3D'
 
 function App() {
-  const [isReady, setIsReady] = useState(false)
-  const [bufferReady, setBufferReady] = useState(false)
+  const isInitialMobile = typeof window !== 'undefined' && window.innerWidth < 900
+  const [isReady, setIsReady] = useState(isInitialMobile)
+  const [bufferReady, setBufferReady] = useState(isInitialMobile)
 
   const handleStartExit = useCallback(() => {
     setIsReady(true)

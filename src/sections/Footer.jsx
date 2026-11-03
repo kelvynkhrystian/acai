@@ -1,5 +1,5 @@
 import React from 'react'
-import logo2 from '../assets/logo2.png'
+import logo2 from '../assets/logo2.webp'
 import './Footer.css'
 
 const WHATSAPP_URL = 'https://wa.me/5599999999999'

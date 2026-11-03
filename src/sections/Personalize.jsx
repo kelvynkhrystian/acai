@@ -122,10 +122,14 @@ export default function Personalize() {
             ref={bowlRef}
           >
             <img
-              src="/products/acai1.png"
+              src="/products/acai1.webp"
               alt="Açaí Tradicional"
               id="personalize-acai-img"
               className="personalize__bowl-img"
+              loading="lazy"
+              decoding="async"
+              width="320"
+              height="380"
             />
           </div>
 

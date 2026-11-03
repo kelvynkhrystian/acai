@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import logo4 from '../assets/logo4.png'
+import logo4 from '../assets/logo4.webp'
 import './Header.css'
 
 const NAV_ITEMS = [

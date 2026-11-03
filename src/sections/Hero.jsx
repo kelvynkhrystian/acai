@@ -40,7 +40,7 @@ export default function Hero({ isReady = false, onBufferReady }) {
 
   /* ─── Atualização do Tamanho do Canvas (Apenas no Resize / Mount Desktop) ─── */
   const updateCanvasSize = useCallback(() => {
-    if (window.innerWidth < 900) return; // No mobile, utiliza imagem mobile1.png
+    if (window.innerWidth < 900) return; // No mobile, utiliza imagem mobile1.webp
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -65,7 +65,7 @@ export default function Hero({ isReady = false, onBufferReady }) {
 
   /* ─── Renderização Otimizada a 60 FPS Desktop ─── */
   const drawInterpolatedFrame = useCallback((exactFrame) => {
-    if (window.innerWidth < 900) return; // No mobile, utiliza imagem mobile1.png
+    if (window.innerWidth < 900) return; // No mobile, utiliza imagem mobile1.webp
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -144,21 +144,17 @@ export default function Hero({ isReady = false, onBufferReady }) {
     [drawInterpolatedFrame],
   );
 
-  /* ─── Pré-carregamento: Mobile usa mobile1.png, Desktop usa Frames ─── */
+  /* ─── Pré-carregamento: Mobile usa mobile1.webp, Desktop usa Frames ─── */
   const preloadFrames = useCallback(() => {
     const isMobile = window.innerWidth < 900;
 
-    // No mobile, carrega apenas a imagem estática de alta performance mobile1.png
+    // No mobile, imagem estática é carregada diretamente via <img> com fetchpriority="high"
     if (isMobile) {
-      const mobImg = new Image();
-      mobImg.src = "/mobile1.png";
-      mobImg.onload = mobImg.onerror = () => {
-        if (!bufferNotifiedRef.current) {
-          bufferNotifiedRef.current = true;
-          isLoadedRef.current = true;
-          if (onBufferReady) onBufferReady();
-        }
-      };
+      if (!bufferNotifiedRef.current) {
+        bufferNotifiedRef.current = true;
+        isLoadedRef.current = true;
+        if (onBufferReady) onBufferReady();
+      }
       return;
     }
 
@@ -344,12 +340,15 @@ export default function Hero({ isReady = false, onBufferReady }) {
       {/* ── Background: Canvas dos 78 frames 1080p (Apenas Desktop) ── */}
       <canvas ref={canvasRef} className="hero__canvas-bg" />
 
-      {/* ── Background Estático Mobile de Alta Performance (mobile1.png) ── */}
+      {/* ── Background Estático Mobile de Alta Performance (mobile1.webp) ── */}
       <img
-        src="/mobile1.png"
+        src="/mobile1.webp"
         alt="Açaí City"
         className="hero__mobile-bg"
-        loading="eager"
+        fetchPriority="high"
+        decoding="sync"
+        width="430"
+        height="932"
       />
 
       {/* ── Camada de Vinheta e Luz ── */}
@@ -411,14 +410,15 @@ export default function Hero({ isReady = false, onBufferReady }) {
             <ChevronRightIcon />
           </a>
 
-          {/* Botão 2: Ver cardápio */}
+          {/* Botão 2: Role para baixo */}
           <a
             href="#cardapio"
             onClick={(e) => handleScrollTo(e, "#cardapio")}
-            className="hero__mobile-btn-cardapio"
+            className="hero__mobile-btn-scroll"
+            aria-label="Role para baixo e veja o cardápio"
           >
-            <BowlIcon />
-            <span>Ver cardápio</span>
+            <ArrowDownIcon />
+            <span>Role para baixo</span>
           </a>
         </div>
       </div>
@@ -512,21 +512,20 @@ function ChevronRightIcon() {
   );
 }
 
-function BowlIcon() {
+function ArrowDownIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2.2"
+      strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="hero__mobile-bowl-icon"
+      className="hero__mobile-scroll-icon"
       aria-hidden="true"
     >
-      <path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z" />
-      <line x1="7" y1="8" x2="17" y2="8" />
-      <path d="M12 4v4" />
+      <path d="M12 5v14" />
+      <path d="m19 12-7 7-7-7" />
     </svg>
   );
 }

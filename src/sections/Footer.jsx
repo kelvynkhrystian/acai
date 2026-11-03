@@ -2,7 +2,7 @@ import React from 'react'
 import logo2 from '../assets/logo2.png'
 import './Footer.css'
 
-const WHATSAPP_URL = 'https://wa.me/5598988759846'
+const WHATSAPP_URL = 'https://wa.me/5599999999999'
 const INSTAGRAM_URL = 'https://instagram.com/meuacaicity'
 
 export default function Footer() {

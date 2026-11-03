@@ -5,7 +5,7 @@ import './Personalize.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const WHATSAPP_PERSONALIZE = 'https://wa.me/5598988759846?text=Olá!%20Gostaria%20de%20montar%20meu%20açaí%20personalizado.'
+const WHATSAPP_PERSONALIZE = 'https://wa.me/5599999999999?text=Olá!%20Gostaria%20de%20montar%20meu%20açaí%20personalizado.'
 
 export default function Personalize() {
   const sectionRef = useRef(null)

@@ -10,22 +10,29 @@ const NAV_ITEMS = [
   { label: 'Sobre Nós', href: '#sobre', id: 'sobre' },
 ]
 
-const WHATSAPP_URL = 'https://wa.me/5598988759846?text=Olá!%20Gostaria%20de%20fazer%20um%20pedido.'
+const WHATSAPP_URL = 'https://wa.me/5599999999999?text=Olá!%20Gostaria%20de%20fazer%20um%20pedido.'
 
-export default function Header() {
+export default function Header({ isReady = false }) {
   const headerRef = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
 
   useEffect(() => {
-    // Slide down suave na entrada
+    if (!isReady) {
+      gsap.set(headerRef.current, { y: -80, opacity: 0 })
+      return
+    }
+
+    // Slide down suave na entrada sincronizado com a saída do preloader
     gsap.fromTo(
       headerRef.current,
       { y: -80, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.2 }
+      { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.1 }
     )
+  }, [isReady])
 
+  useEffect(() => {
     // Listener de scroll para sombra e detecção da seção ativa
     const handleScroll = () => {
       const scrollY = window.scrollY

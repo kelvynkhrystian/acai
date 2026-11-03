@@ -5,7 +5,7 @@ import './Delivery.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const WHATSAPP_DELIVERY = 'https://wa.me/5598988759846?text=Olá!%20Gostaria%20de%20fazer%20um%20pedido%20para%20entrega.'
+const WHATSAPP_DELIVERY = 'https://wa.me/5599999999999?text=Olá!%20Gostaria%20de%20fazer%20um%20pedido%20para%20entrega.'
 
 export default function Delivery() {
   const sectionRef = useRef(null)

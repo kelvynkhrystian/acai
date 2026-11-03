@@ -5,7 +5,7 @@ import './Cardapio.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const WHATSAPP_BASE = 'https://wa.me/5598988759846?text='
+const WHATSAPP_BASE = 'https://wa.me/5599999999999?text='
 
 const PRODUTOS = [
   {

@@ -3,20 +3,25 @@ import { gsap } from 'gsap'
 import './Hero.css'
 
 const TOTAL_FRAMES = 78 // frames 0 a 77
-const FAST_DURATION = 2.8 // Fase de subida e explosão mais suave e perceptível (0 a 2.8s)
-const SLOW_DURATION = 3.8 // Câmera lenta gradual e prolongada (2.8s a 6.6s)
+const FAST_DURATION = 2.8 // Fase de subida e explosão suave (0 a 2.8s)
+const SLOW_DURATION = 3.8 // Câmera lenta gradual (2.8s a 6.6s)
 const TOTAL_DURATION = FAST_DURATION + SLOW_DURATION // 6.6s total
 const FAST_END_FRAME = 72
 const FINAL_FRAME = 77
+const BUFFER_THRESHOLD = 24 // Buffer seguro para início instantâneo e 100% fluido
 
-const WHATSAPP_URL = 'https://wa.me/5598988759846?text=Olá!%20Gostaria%20de%20fazer%20um%20pedido%20agora!'
-
-export default function Hero() {
+export default function Hero({ isReady = false, onBufferReady }) {
   const canvasRef = useRef(null)
   const imagesRef = useRef([])
   const rafRef = useRef(null)
   const startTimeRef = useRef(null)
   const isLoadedRef = useRef(false)
+  const isVisibleRef = useRef(true)
+  const isPlayingRef = useRef(false)
+  const bufferNotifiedRef = useRef(false)
+
+  // Cache de dimensões para evitar layout thrashing (zero getBoundingClientRect no rAF)
+  const sizeRef = useRef({ w: 0, h: 0, dpr: 1, isMobile: false })
 
   // GSAP animation refs
   const leftColRef = useRef(null)
@@ -33,64 +38,88 @@ export default function Hero() {
     }
   }
 
-  /* ─── Renderização no Canvas com Escala Balanceada (Nítido e não gigante no Mobile) ─── */
+  /* ─── Atualização do Tamanho do Canvas (Apenas no Resize / Mount) ─── */
+  const updateCanvasSize = useCallback(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const rect = canvas.getBoundingClientRect()
+    const w = rect.width
+    const h = rect.height
+    const isMobile = window.innerWidth < 768
+
+    // Capping de DPR inteligente: mobile usa 1.25x (70% menos pixels, zero jank)
+    const maxDpr = isMobile ? 1.25 : 1.75
+    const dpr = Math.min(window.devicePixelRatio || 1, maxDpr)
+
+    canvas.width = Math.round(w * dpr)
+    canvas.height = Math.round(h * dpr)
+
+    const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true })
+    if (ctx) {
+      ctx.imageSmoothingEnabled = true
+      ctx.imageSmoothingQuality = isMobile ? 'medium' : 'high'
+    }
+
+    sizeRef.current = { w, h, dpr, isMobile }
+  }, [])
+
+  /* ─── Renderização Otimizada a 60 FPS (Zero Reflow e Cover Cinematográfico) ─── */
   const drawInterpolatedFrame = useCallback((exactFrame) => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
+    if (!ctx) return
 
-    const dpr = window.devicePixelRatio || 1
-    const rect = canvas.getBoundingClientRect()
-    const w = rect.width
-    const h = rect.height
-
-    if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
-      canvas.width = Math.round(w * dpr)
-      canvas.height = Math.round(h * dpr)
-    }
+    const { w, h, dpr, isMobile } = sizeRef.current
+    if (w === 0 || h === 0) return
 
     ctx.save()
     ctx.scale(dpr, dpr)
-    ctx.imageSmoothingEnabled = true
-    ctx.imageSmoothingQuality = 'high'
-
-    ctx.clearRect(0, 0, w, h)
 
     const clamped = Math.max(0, Math.min(exactFrame, FINAL_FRAME))
     const indexA = Math.floor(clamped)
     const indexB = Math.min(indexA + 1, FINAL_FRAME)
     const blend = clamped - indexA
 
-    const imgA = imagesRef.current[indexA]
-    const imgB = imagesRef.current[indexB]
+    // No mobile, renderiza o frame direto mais próximo (corta esforço de GPU pela metade)
+    const targetIndex = isMobile ? Math.round(clamped) : indexA
+    const imgA = imagesRef.current[targetIndex] || imagesRef.current[indexA]
 
     if (imgA && imgA.complete && imgA.naturalWidth) {
       const iw = imgA.naturalWidth
       const ih = imgA.naturalHeight
 
-      // Modo cover cinematográfico completo (preenche 100% da tela)
+      // Modo cover cinematográfico completo
       const scale = Math.max(w / iw, h / ih)
       const dw = iw * scale
       const dh = ih * scale
       const dx = (w - dw) / 2
       const dy = (h - dh) / 2
 
-      // Desenha frame base
       ctx.drawImage(imgA, dx, dy, dw, dh)
 
-      // Se houver fração decimal, interpola suavemente para 60 FPS
-      if (blend > 0.005 && imgB && imgB.complete && imgB.naturalWidth && indexA !== indexB) {
-        ctx.globalAlpha = blend
-        ctx.drawImage(imgB, dx, dy, dw, dh)
-        ctx.globalAlpha = 1.0
+      // No desktop, interpolação entre frames para fluidez máxima
+      if (!isMobile && blend > 0.005) {
+        const imgB = imagesRef.current[indexB]
+        if (imgB && imgB.complete && imgB.naturalWidth && indexA !== indexB) {
+          ctx.globalAlpha = blend
+          ctx.drawImage(imgB, dx, dy, dw, dh)
+          ctx.globalAlpha = 1.0
+        }
       }
     }
 
     ctx.restore()
   }, [])
 
-  /* ─── Loop com Câmera Lenta Desacelerada ─── */
+  /* ─── Loop de Animação do Vídeo com Pausa Inteligente fora da tela ─── */
   const animate = useCallback((timestamp) => {
+    if (!isVisibleRef.current) {
+      rafRef.current = requestAnimationFrame(animate)
+      return
+    }
+
     if (!startTimeRef.current) startTimeRef.current = timestamp
     const elapsed = (timestamp - startTimeRef.current) / 1000
 
@@ -110,120 +139,198 @@ export default function Hero() {
     }
   }, [drawInterpolatedFrame])
 
-  /* ─── Pré-carregamento dos 78 frames 1080p ─── */
+  /* ─── Pré-carregamento Prioritário: Frame 0 primeiro, depois os demais ─── */
   const preloadFrames = useCallback(() => {
-    return new Promise((resolve) => {
-      let loaded = 0
-      for (let i = 0; i < TOTAL_FRAMES; i++) {
+    let loadedCount = 0
+    const total = TOTAL_FRAMES
+
+    // 1. Carrega o frame 0 prioritariamente
+    const img0 = new Image()
+    img0.decoding = 'async'
+    img0.src = '/frames/frame-000.jpg'
+    imagesRef.current[0] = img0
+
+    img0.onload = () => {
+      // Pinta o frame 0 imediatamente no canvas para a tela já ficar pronta e nítida atrás do loading
+      drawInterpolatedFrame(0)
+      if (img0.decode) img0.decode().catch(() => {})
+      loadedCount++
+
+      // 2. Inicia o carregamento e decodificação em ordem dos frames seguintes
+      for (let i = 1; i < total; i++) {
         const num = String(i).padStart(3, '0')
         const img = new Image()
+        img.decoding = 'async'
         img.src = `/frames/frame-${num}.jpg`
+        imagesRef.current[i] = img
+
         img.onload = img.onerror = () => {
-          loaded++
-          if (loaded === 1) {
-            drawInterpolatedFrame(0)
-          }
-          if (loaded === TOTAL_FRAMES) {
+          loadedCount++
+          // Decomprime o bitmap na memória da GPU
+          if (img.decode) img.decode().catch(() => {})
+
+          if (loadedCount >= BUFFER_THRESHOLD && !bufferNotifiedRef.current) {
+            bufferNotifiedRef.current = true
             isLoadedRef.current = true
-            resolve()
+            if (onBufferReady) onBufferReady()
           }
         }
-        imagesRef.current[i] = img
       }
-    })
-  }, [drawInterpolatedFrame])
+    }
 
-  /* ─── Redimensionamento ─── */
+    img0.onerror = () => {
+      if (!bufferNotifiedRef.current) {
+        bufferNotifiedRef.current = true
+        isLoadedRef.current = true
+        if (onBufferReady) onBufferReady()
+      }
+    }
+
+    // Fallback de segurança para liberar o buffer em conexões instáveis
+    setTimeout(() => {
+      if (!bufferNotifiedRef.current) {
+        bufferNotifiedRef.current = true
+        isLoadedRef.current = true
+        if (onBufferReady) onBufferReady()
+      }
+    }, 2200)
+  }, [drawInterpolatedFrame, onBufferReady])
+
+  /* ─── Observer e Redimensionamento ─── */
   useEffect(() => {
+    updateCanvasSize()
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting
+      },
+      { threshold: 0.05 }
+    )
+
+    if (canvasRef.current) {
+      observer.observe(canvasRef.current)
+    }
+
     const handleResize = () => {
-      if (isLoadedRef.current) {
+      updateCanvasSize()
+      if (!isReady || !isPlayingRef.current) {
+        drawInterpolatedFrame(0)
+      } else if (isLoadedRef.current) {
         drawInterpolatedFrame(FINAL_FRAME)
       }
     }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [drawInterpolatedFrame])
+
+    window.addEventListener('resize', handleResize, { passive: true })
+    window.addEventListener('orientationchange', handleResize, { passive: true })
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('orientationchange', handleResize)
+    }
+  }, [updateCanvasSize, drawInterpolatedFrame, isReady])
 
   /* ─── Animações GSAP de Entrada dos Textos ─── */
   const runGsapAnimations = useCallback(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
+    // Habilita os wrappers para exibição dos filhos
+    if (leftColRef.current) gsap.set(leftColRef.current, { opacity: 1 })
+    if (rightColRef.current) gsap.set(rightColRef.current, { opacity: 1 })
+    if (mobileTopRef.current) gsap.set(mobileTopRef.current, { opacity: 1 })
+    if (mobileBottomRef.current) gsap.set(mobileBottomRef.current, { opacity: 1 })
+
     // Animações Desktop
-    if (leftColRef.current) {
+    if (leftColRef.current && window.innerWidth >= 768) {
       tl.fromTo(
         leftColRef.current.children,
-        { opacity: 0, x: -35 },
-        { opacity: 1, x: 0, duration: 0.9, stagger: 0.15 },
-        0.3
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.8, stagger: 0.12 },
+        0.15
       )
     }
 
-    if (rightColRef.current) {
+    if (rightColRef.current && window.innerWidth >= 768) {
       tl.fromTo(
         rightColRef.current.children,
-        { opacity: 0, x: 35 },
-        { opacity: 1, x: 0, duration: 0.9, stagger: 0.15 },
-        0.5
+        { opacity: 0, x: 30 },
+        { opacity: 1, x: 0, duration: 0.8, stagger: 0.12 },
+        0.25
       )
     }
 
-    if (ctaBtnRef.current) {
+    if (ctaBtnRef.current && window.innerWidth >= 768) {
       tl.fromTo(
         ctaBtnRef.current,
-        { scale: 0.85, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.7)' },
-        1.1
+        { scale: 0.88, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.5)' },
+        0.65
       )
     }
 
     // Animações Mobile
-    if (mobileTopRef.current) {
+    if (mobileTopRef.current && window.innerWidth < 768) {
       tl.fromTo(
         mobileTopRef.current.children,
-        { opacity: 0, y: -25 },
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 },
-        0.3
+        { opacity: 0, y: -18 },
+        { opacity: 1, y: 0, duration: 0.65, stagger: 0.08 },
+        0.15
       )
     }
 
-    if (mobileBottomRef.current) {
+    if (mobileBottomRef.current && window.innerWidth < 768) {
       tl.fromTo(
         mobileBottomRef.current.children,
-        { opacity: 0, y: 25 },
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 },
-        0.7
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.65, stagger: 0.08 },
+        0.4
       )
     }
   }, [])
 
-  /* ─── Inicialização ─── */
+  /* ─── 1. Inicia o Pré-carregamento dos Frames Imediatamente no Mount ─── */
   useEffect(() => {
-    preloadFrames().then(() => {
-      startTimeRef.current = null
-      rafRef.current = requestAnimationFrame(animate)
-      runGsapAnimations()
-    })
+    preloadFrames()
+  }, [preloadFrames])
+
+  /* ─── 2. IMPEDE O VÍDEO DE COMEÇAR até que isReady seja true (término do preloader) ─── */
+  useEffect(() => {
+    if (!isReady) {
+      // Enquanto o carregamento está ativo, o vídeo fica congelado no frame 0
+      drawInterpolatedFrame(0)
+      return
+    }
+
+    if (isPlayingRef.current) return
+    isPlayingRef.current = true
+
+    // Começa exatamente do tempo zero assim que o loading termina
+    startTimeRef.current = null
+    rafRef.current = requestAnimationFrame(animate)
+
+    // Inicia a entrada suave dos textos sincronizada com a saída do preloader
+    runGsapAnimations()
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
-  }, [preloadFrames, animate, runGsapAnimations])
+  }, [isReady, animate, drawInterpolatedFrame, runGsapAnimations])
 
   return (
     <section className="hero" id="hero">
       {/* ── Background: Canvas dos 78 frames 1080p ── */}
       <canvas ref={canvasRef} className="hero__canvas-bg" />
 
-      {/* ── Camada de Vinheta e Luz (Sem escurecer o centro no mobile) ── */}
+      {/* ── Camada de Vinheta e Luz ── */}
       <div className="hero__darken-overlay" />
 
       {/* =========================================================
-          1. ESTRUTURA MOBILE (Exata à imagem de referência anexada)
+          1. ESTRUTURA MOBILE
           ========================================================= */}
       <div className="hero__mobile-view">
         
         {/* Bloco de Texto Superior */}
-        <div className="hero__mobile-top" ref={mobileTopRef}>
+        <div className="hero__mobile-top" ref={mobileTopRef} style={{ opacity: 0 }}>
           <p className="hero__mobile-intro">O açaí mais</p>
           
           <div className="hero__mobile-title-wrap">
@@ -242,10 +349,10 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Bloco de Ações Inferior (Botões e Dots) */}
-        <div className="hero__mobile-bottom" ref={mobileBottomRef}>
+        {/* Bloco de Ações Inferior */}
+        <div className="hero__mobile-bottom" ref={mobileBottomRef} style={{ opacity: 0 }}>
           
-          {/* Botão 1: Peça agora no WhatsApp (Desativado) */}
+          {/* Botão 1: Peça agora no WhatsApp */}
           <a
             href="#"
             onClick={(e) => e.preventDefault()}
@@ -273,13 +380,13 @@ export default function Hero() {
       </div>
 
       {/* =========================================================
-          2. ESTRUTURA DESKTOP (Layout Lateral com Enquadramento)
+          2. ESTRUTURA DESKTOP
           ========================================================= */}
       <div className="hero__desktop-view">
         <div className="hero__frame">
 
           {/* Lado Esquerdo */}
-          <div className="hero__left-box" ref={leftColRef}>
+          <div className="hero__left-box" ref={leftColRef} style={{ opacity: 0 }}>
             <p className="hero__intro">Hoje é dia de</p>
 
             <h1 className="hero__acai-title">AÇAÍ</h1>
@@ -292,7 +399,7 @@ export default function Hero() {
           </div>
 
           {/* Lado Direito */}
-          <div className="hero__right-box" ref={rightColRef}>
+          <div className="hero__right-box" ref={rightColRef} style={{ opacity: 0 }}>
             <h2 className="hero__cremoso-title">
               <span>CREMOSO,</span>
               <span>REFRESCANTE,</span>
@@ -310,6 +417,7 @@ export default function Hero() {
               onClick={(e) => e.preventDefault()}
               className="hero__cta-green"
               ref={ctaBtnRef}
+              style={{ opacity: 0 }}
             >
               <WhatsAppIcon />
               <span>Faça seu pedido agora!</span>

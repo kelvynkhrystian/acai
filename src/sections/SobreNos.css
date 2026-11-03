@@ -9,21 +9,21 @@
   padding: 8rem 2rem 10.5rem;
   color: #1a042e;
   overflow: visible;
-  scroll-margin-top: 80px;
+  scroll-margin-top: 110px;
 }
 
 .essencia__container {
-  max-width: 1380px;
+  max-width: 1320px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.25fr 1fr;
+  grid-template-columns: 1.2fr 1fr;
   align-items: center;
   gap: 5rem;
   position: relative;
   z-index: 2;
 }
 
-/* ─── Lado Esquerdo (Foto Bem Maior com Anel Dourado) ─── */
+/* ─── Lado Esquerdo (Imagem Original com Anel Dourado) ─── */
 .essencia__left {
   display: flex;
   justify-content: center;
@@ -33,13 +33,12 @@
 .essencia__img-wrap {
   position: relative;
   width: 100%;
-  max-width: 680px; /* Bem maior, preenchendo com impacto */
+  max-width: 620px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Anel / Círculo Dourado da Referência Visual */
 .essencia__decor-ring {
   position: absolute;
   width: 82%;
@@ -100,11 +99,11 @@
 .essencia__title {
   font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
   font-weight: 900;
-  font-size: clamp(2.8rem, 4.4vw, 4.2rem);
+  font-size: clamp(2.6rem, 4.4vw, 4rem);
   letter-spacing: -0.03em;
-  line-height: 1.12;
+  line-height: 1.15;
   color: #1a042e;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.5rem;
 }
 
 .essencia__title-purple {
@@ -114,63 +113,9 @@
 .essencia__desc {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.15rem;
-  line-height: 1.7;
+  line-height: 1.75;
   color: rgba(38, 4, 66, 0.82);
-  margin-bottom: 2.5rem;
-  max-width: 480px;
-}
-
-/* ─── Os 3 Badges de Valor ─── */
-.essencia__badges {
-  display: flex;
-  gap: 2.2rem;
-  width: 100%;
-}
-
-.essencia__badge-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.75rem;
-}
-
-.essencia__badge-icon {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.essencia__badge-icon--green {
-  background-color: #dcfce7;
-  color: #15803d;
-}
-
-.essencia__badge-icon--purple {
-  background-color: #f3e8ff;
-  color: #7e22ce;
-}
-
-.essencia__badge-icon--gold {
-  background-color: #fef9c3;
-  color: #a16207;
-}
-
-.essencia__badge-item:hover .essencia__badge-icon {
-  transform: translateY(-4px) scale(1.08);
-}
-
-.essencia__badge-name {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #1a042e;
-  line-height: 1.35;
+  max-width: 520px;
 }
 
 /* ─── Onda de Transição para o Delivery (roxo escuro) ─── */
@@ -212,10 +157,5 @@
 
   .essencia__img-wrap {
     max-width: 440px;
-  }
-
-  .essencia__badges {
-    justify-content: center;
-    gap: 1.5rem;
   }
 }

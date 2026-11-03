@@ -1,0 +1,152 @@
+/* ===================================================
+   TELA DE CARREGAMENTO (PRELOADER 2S) — AÇAÍ CITY
+   =================================================== */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background-color: #10011c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: all;
+  user-select: none;
+}
+
+/* Brilho Radial de Fundo */
+.preloader__glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(107, 33, 168, 0.45) 0%,
+    rgba(88, 12, 122, 0.2) 45%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  animation: preloaderPulseGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes preloaderPulseGlow {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* Container de Conteúdo Central */
+.preloader__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  max-width: 420px;
+  width: 90%;
+}
+
+/* Logo com Brilho e Respiração */
+.preloader__logo-wrap {
+  margin-bottom: 2.2rem;
+  display: flex;
+  justify-content: center;
+  animation: preloaderFloat 2s ease-in-out infinite alternate;
+}
+
+@keyframes preloaderFloat {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-6px);
+  }
+}
+
+.preloader__logo {
+  height: 135px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px rgba(107, 33, 168, 0.6));
+}
+
+/* Barra de Progresso */
+.preloader__bar-track {
+  width: 100%;
+  max-width: 280px;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1.25rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.preloader__bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #9333ea, #FFB800 65%, #22c55e 100%);
+  box-shadow: 0 0 14px rgba(255, 184, 0, 0.85);
+  transition: width 0.06s linear;
+  will-change: width;
+}
+
+/* Rodapé com Porcentagem e Tagline */
+.preloader__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.preloader__percent {
+  font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #FFB800;
+  text-shadow: 0 0 20px rgba(255, 184, 0, 0.5);
+  min-width: 60px;
+}
+
+.preloader__tagline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.02em;
+  max-width: 280px;
+  line-height: 1.4;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 480px) {
+  .preloader__logo {
+    height: 110px;
+  }
+
+  .preloader__bar-track {
+    max-width: 240px;
+    height: 5px;
+  }
+
+  .preloader__percent {
+    font-size: 1.2rem;
+  }
+
+  .preloader__tagline {
+    font-size: 0.82rem;
+  }
+}

@@ -31,34 +31,21 @@ export default function Personalize() {
         }
       )
 
-      // Parallax sutil na tigela ao rolar a página
+      // Revelação suave do palco da tigela
       gsap.fromTo(
         bowlRef.current,
-        { y: 30, scale: 0.94, opacity: 0 },
+        { scale: 0.95, opacity: 0 },
         {
-          y: 0,
           scale: 1,
           opacity: 1,
-          duration: 1.1,
-          ease: 'power3.out',
+          duration: 0.9,
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 75%',
           },
         }
       )
-
-      // Efeito de Parallax contínuo no scroll para a tigela
-      gsap.to(bowlRef.current, {
-        y: -35,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1.5,
-        },
-      })
 
       // Revelação em cascata dos 3 passos sobrepostos
       gsap.fromTo(

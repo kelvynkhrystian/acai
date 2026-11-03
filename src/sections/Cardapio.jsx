@@ -84,20 +84,19 @@ export default function Cardapio() {
         }
       )
 
-      // Slide dos cards (deslizando suavemente com stagger)
+      // Slide suave dos cards (vertical puro, sem deslocamento horizontal para precisão milimétrica do voo 3D)
       gsap.fromTo(
         cardsRef.current,
-        { opacity: 0, y: 60, x: 30 },
+        { opacity: 0, y: 40 },
         {
           opacity: 1,
           y: 0,
-          x: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
+          duration: 0.7,
+          stagger: 0.1,
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: gridRef.current,
-            start: 'top 80%',
+            start: 'top 85%',
           },
         }
       )

@@ -479,6 +479,11 @@
   flex-shrink: 0;
 }
 
+/* ─── Background Estático para Mobile (mobile1.png) ─── */
+.hero__mobile-bg {
+  display: none;
+}
+
 /* ===================================================
    3. RESPONSIVIDADE DINÂMICA
    =================================================== */
@@ -489,6 +494,24 @@
     padding: 0;
   }
 
+  /* Desativa totalmente o canvas no mobile para economizar 100% de CPU/GPU */
+  .hero__canvas-bg {
+    display: none !important;
+  }
+
+  /* Exibe a imagem mobile1.png nativamente com proporção perfeita */
+  .hero__mobile-bg {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    z-index: 0;
+    pointer-events: none;
+  }
+
   /* Oculta layout lateral desktop e exibe o mobile vertical */
   .hero__desktop-view {
     display: none !important;
@@ -496,15 +519,29 @@
 
   .hero__mobile-view {
     display: flex !important;
+    min-height: 100dvh;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4.8rem 1.3rem 1.8rem;
+    box-sizing: border-box;
   }
 
-  /* Camada escurecida cinematográfica para contrastar com as frases e botões no mobile */
+  .hero__mobile-top {
+    margin: 0 auto;
+  }
+
+  .hero__mobile-bottom {
+    margin-top: auto;
+  }
+
+  /* Vinheta sutil que não apaga o açaí em mobile1.png */
   .hero__darken-overlay {
     background: radial-gradient(
       circle at 50% 50%,
-      rgba(16, 2, 28, 0.35) 0%,
-      rgba(14, 1, 24, 0.68) 60%,
-      rgba(8, 0, 15, 0.92) 100%
+      rgba(16, 2, 28, 0.08) 0%,
+      rgba(14, 1, 24, 0.28) 65%,
+      rgba(8, 0, 15, 0.65) 100%
     ) !important;
   }
 }

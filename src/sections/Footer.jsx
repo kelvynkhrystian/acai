@@ -44,7 +44,7 @@ export default function Footer() {
             <h4 className="footer__col-title">Redes Sociais</h4>
             <ul className="footer__list footer__list--social">
               <li>
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="footer__social-card">
+                <a href="#" onClick={(e) => e.preventDefault()} className="footer__social-card">
                   <div className="footer__icon-badge">
                     <InstagramIcon />
                   </div>
@@ -52,11 +52,11 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="footer__social-card">
+                <a href="#" onClick={(e) => e.preventDefault()} className="footer__social-card">
                   <div className="footer__icon-badge">
                     <WhatsAppIcon />
                   </div>
-                  <span className="footer__social-text">(98) 98875-9846</span>
+                  <span className="footer__social-text">(99) 99999-9999</span>
                 </a>
               </li>
             </ul>

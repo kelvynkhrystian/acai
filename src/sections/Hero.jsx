@@ -245,11 +245,10 @@ export default function Hero() {
         {/* Bloco de Ações Inferior (Botões e Dots) */}
         <div className="hero__mobile-bottom" ref={mobileBottomRef}>
           
-          {/* Botão 1: Peça agora no WhatsApp */}
+          {/* Botão 1: Peça agora no WhatsApp (Desativado) */}
           <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#"
+            onClick={(e) => e.preventDefault()}
             className="hero__mobile-btn-whatsapp"
           >
             <div className="hero__mobile-btn-left">
@@ -307,9 +306,8 @@ export default function Hero() {
             </p>
 
             <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
+              onClick={(e) => e.preventDefault()}
               className="hero__cta-green"
               ref={ctaBtnRef}
             >

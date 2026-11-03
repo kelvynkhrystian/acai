@@ -90,9 +90,8 @@ export default function Delivery() {
           </p>
 
           <a
-            href={WHATSAPP_DELIVERY}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#"
+            onClick={(e) => e.preventDefault()}
             className="delivery__btn"
           >
             <WhatsAppIcon />

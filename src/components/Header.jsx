@@ -88,8 +88,8 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* WhatsApp CTA (apenas Desktop) */}
-        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-whatsapp header__cta">
+        {/* WhatsApp CTA (apenas Desktop) - Desativado */}
+        <a href="#" onClick={(e) => e.preventDefault()} className="btn-whatsapp header__cta">
           <WhatsAppIcon />
           Fale Conosco
         </a>
@@ -116,7 +116,7 @@ export default function Header() {
             {item.label}
           </a>
         ))}
-        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-whatsapp header__mobile-cta">
+        <a href="#" onClick={(e) => e.preventDefault()} className="btn-whatsapp header__mobile-cta">
           <WhatsAppIcon />
           Fale Conosco
         </a>

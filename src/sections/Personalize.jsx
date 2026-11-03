@@ -109,9 +109,8 @@ export default function Personalize() {
           </p>
 
           <a
-            href={WHATSAPP_PERSONALIZE}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#"
+            onClick={(e) => e.preventDefault()}
             className="personalize__btn"
           >
             <WhatsAppIcon />

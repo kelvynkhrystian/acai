@@ -94,9 +94,8 @@ export default function Promocoes() {
                 <span className="promo-card__destaque">{p.destaque}</span>
               </div>
               <a
-                href={`https://wa.me/5511999999999?text=Quero aproveitar a promoção: ${p.titulo}`}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#"
+                onClick={(e) => e.preventDefault()}
                 className="btn-whatsapp promo-card__btn"
               >
                 <WhatsAppIcon />

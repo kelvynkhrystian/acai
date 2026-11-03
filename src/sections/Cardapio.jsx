@@ -159,9 +159,8 @@ export default function Cardapio() {
                   <p className="destaque-card__desc">{item.descricao}</p>
 
                   <a
-                    href={`${WHATSAPP_BASE}${encodeURIComponent(`Olá! Gostaria de pedir o ${item.nome}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="#"
+                    onClick={(e) => e.preventDefault()}
                     className="destaque-card__btn-price"
                   >
                     {item.preco}

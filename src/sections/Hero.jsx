@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import './Hero.css'
 
 const TOTAL_FRAMES = 78 // frames 0 a 77
-const FAST_DURATION = 2.8 // Fase de subida e explosão suave (0 a 2.8s)
+const FAST_DURATION = 2.8 // Fase de subida suave (0 a 2.8s)
 const SLOW_DURATION = 3.8 // Câmera lenta gradual (2.8s a 6.6s)
 const TOTAL_DURATION = FAST_DURATION + SLOW_DURATION // 6.6s total
 const FAST_END_FRAME = 72
@@ -46,7 +46,7 @@ export default function Hero({ isReady = false, onBufferReady }) {
     const rect = canvas.getBoundingClientRect()
     const w = rect.width
     const h = rect.height
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 900
 
     // Capping de DPR inteligente: mobile usa 1.25x (70% menos pixels, zero jank)
     const maxDpr = isMobile ? 1.25 : 1.75
@@ -166,7 +166,6 @@ export default function Hero({ isReady = false, onBufferReady }) {
 
         img.onload = img.onerror = () => {
           loadedCount++
-          // Decomprime o bitmap na memória da GPU
           if (img.decode) img.decode().catch(() => {})
 
           if (loadedCount >= BUFFER_THRESHOLD && !bufferNotifiedRef.current) {
@@ -230,7 +229,7 @@ export default function Hero({ isReady = false, onBufferReady }) {
     }
   }, [updateCanvasSize, drawInterpolatedFrame, isReady])
 
-  /* ─── Animações GSAP de Entrada dos Textos ─── */
+  /* ─── Animações GSAP de Entrada dos Textos (Equilibradas e Polidas) ─── */
   const runGsapAnimations = useCallback(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
@@ -241,49 +240,49 @@ export default function Hero({ isReady = false, onBufferReady }) {
     if (mobileBottomRef.current) gsap.set(mobileBottomRef.current, { opacity: 1 })
 
     // Animações Desktop
-    if (leftColRef.current && window.innerWidth >= 768) {
+    if (leftColRef.current && window.innerWidth >= 900) {
       tl.fromTo(
         leftColRef.current.children,
-        { opacity: 0, x: -30 },
+        { opacity: 0, x: -25 },
         { opacity: 1, x: 0, duration: 0.8, stagger: 0.12 },
-        0.15
+        0.1
       )
     }
 
-    if (rightColRef.current && window.innerWidth >= 768) {
+    if (rightColRef.current && window.innerWidth >= 900) {
       tl.fromTo(
         rightColRef.current.children,
-        { opacity: 0, x: 30 },
+        { opacity: 0, x: 25 },
         { opacity: 1, x: 0, duration: 0.8, stagger: 0.12 },
-        0.25
+        0.2
       )
     }
 
-    if (ctaBtnRef.current && window.innerWidth >= 768) {
+    if (ctaBtnRef.current && window.innerWidth >= 900) {
       tl.fromTo(
         ctaBtnRef.current,
         { scale: 0.88, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.5)' },
-        0.65
+        { scale: 1, opacity: 1, duration: 0.55, ease: 'back.out(1.5)' },
+        0.6
       )
     }
 
     // Animações Mobile
-    if (mobileTopRef.current && window.innerWidth < 768) {
+    if (mobileTopRef.current && window.innerWidth < 900) {
       tl.fromTo(
         mobileTopRef.current.children,
-        { opacity: 0, y: -18 },
+        { opacity: 0, y: -16 },
         { opacity: 1, y: 0, duration: 0.65, stagger: 0.08 },
-        0.15
+        0.1
       )
     }
 
-    if (mobileBottomRef.current && window.innerWidth < 768) {
+    if (mobileBottomRef.current && window.innerWidth < 900) {
       tl.fromTo(
         mobileBottomRef.current.children,
         { opacity: 0, y: 18 },
         { opacity: 1, y: 0, duration: 0.65, stagger: 0.08 },
-        0.4
+        0.35
       )
     }
   }, [])
@@ -325,27 +324,36 @@ export default function Hero({ isReady = false, onBufferReady }) {
       <div className="hero__darken-overlay" />
 
       {/* =========================================================
-          1. ESTRUTURA MOBILE
+          1. ESTRUTURA MOBILE (Compacta, Sem Overflow e 100% Enquadrada)
           ========================================================= */}
       <div className="hero__mobile-view">
         
         {/* Bloco de Texto Superior */}
         <div className="hero__mobile-top" ref={mobileTopRef} style={{ opacity: 0 }}>
-          <p className="hero__mobile-intro">O açaí mais</p>
           
-          <div className="hero__mobile-title-wrap">
-            <h1 className="hero__mobile-cremoso">CREMOSO</h1>
-            <div className="hero__mobile-rays" aria-hidden="true">
-              <span className="hero__mobile-ray hero__mobile-ray--1" />
-              <span className="hero__mobile-ray hero__mobile-ray--2" />
-              <span className="hero__mobile-ray hero__mobile-ray--3" />
-            </div>
+          <div className="hero__mobile-badge">
+            <span className="hero__badge-dot" />
+            <span>100% Puro & Artesanal</span>
           </div>
 
-          <h2 className="hero__mobile-regiao">da região!</h2>
+          <div className="hero__mobile-title-wrap">
+            <p className="hero__mobile-intro">O AÇAÍ MAIS</p>
+            
+            <div className="hero__mobile-cremoso-wrap">
+              <h1 className="hero__mobile-cremoso">CREMOSO</h1>
+              
+              <div className="hero__mobile-rays" aria-hidden="true">
+                <span className="hero__mobile-ray hero__mobile-ray--1" />
+                <span className="hero__mobile-ray hero__mobile-ray--2" />
+                <span className="hero__mobile-ray hero__mobile-ray--3" />
+              </div>
+            </div>
+
+            <h2 className="hero__mobile-regiao">da região!</h2>
+          </div>
 
           <p className="hero__mobile-subtitle">
-            Sabor, qualidade e combinações irresistíveis para o seu dia.
+            Sabor autêntico, cremosidade inconfundível e combinações irresistíveis.
           </p>
         </div>
 
@@ -380,36 +388,36 @@ export default function Hero({ isReady = false, onBufferReady }) {
       </div>
 
       {/* =========================================================
-          2. ESTRUTURA DESKTOP
+          2. ESTRUTURA DESKTOP (Equilibrada, Sem Ocultar o Copo)
           ========================================================= */}
       <div className="hero__desktop-view">
         <div className="hero__frame">
 
           {/* Lado Esquerdo */}
           <div className="hero__left-box" ref={leftColRef} style={{ opacity: 0 }}>
-            <p className="hero__intro">Hoje é dia de</p>
+            <div className="hero__pill-tag">
+              <span className="hero__pill-dot" />
+              <span>100% Puro & Artesanal</span>
+            </div>
 
+            <p className="hero__intro">HOJE É DIA DE</p>
             <h1 className="hero__acai-title">AÇAÍ</h1>
 
             <p className="hero__left-desc">
-              Descubra o sabor<br />
-              do açaí <strong>mais gostoso</strong><br />
-              da região.
+              Descubra a cremosidade do <strong>autêntico açaí</strong> da Amazônia, batido no ponto ideal de sabor.
             </p>
           </div>
 
           {/* Lado Direito */}
           <div className="hero__right-box" ref={rightColRef} style={{ opacity: 0 }}>
             <h2 className="hero__cremoso-title">
-              <span>CREMOSO,</span>
-              <span>REFRESCANTE,</span>
-              <span className="hero__highlight-yellow">IRRESISTÍVEL!</span>
+              <span className="hero__title-white">CREMOSO,</span>
+              <span className="hero__title-white">REFRESCANTE,</span>
+              <span className="hero__title-gradient">IRRESISTÍVEL!</span>
             </h2>
 
             <p className="hero__right-desc">
-              Peça agora seu açaí<br />
-              favorito e aproveite<br />
-              cada colherada!
+              Peça agora seu açaí favorito e aproveite cada colherada!
             </p>
 
             <a
@@ -421,6 +429,7 @@ export default function Hero({ isReady = false, onBufferReady }) {
             >
               <WhatsAppIcon />
               <span>Faça seu pedido agora!</span>
+              <span className="hero__cta-shimmer" aria-hidden="true" />
             </a>
           </div>
 

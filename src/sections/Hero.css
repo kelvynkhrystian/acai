@@ -1,5 +1,5 @@
 /* ===================================================
-   HERO SECTION — Design Desktop & Mobile Fiel à Referência
+   HERO SECTION — Design Premium, Enquadrado e Impecável
    =================================================== */
 
 .hero {
@@ -25,7 +25,7 @@
   pointer-events: none;
 }
 
-/* ─── Camada de Iluminação e Vinheta (Suave e Nítida) ─── */
+/* ─── Camada de Iluminação e Vinheta Cinemática ─── */
 .hero__darken-overlay {
   position: absolute;
   inset: 0;
@@ -33,14 +33,14 @@
   pointer-events: none;
   background: radial-gradient(
     circle at 50% 50%,
-    transparent 0%,
-    rgba(16, 2, 28, 0.25) 65%,
-    rgba(10, 1, 18, 0.75) 100%
+    rgba(14, 2, 24, 0.12) 0%,
+    rgba(14, 2, 24, 0.42) 58%,
+    rgba(8, 0, 15, 0.82) 100%
   );
 }
 
 /* ===================================================
-   1. VISÃO DESKTOP
+   1. VISÃO DESKTOP (Enquadramento Perfeito do Copo)
    =================================================== */
 
 .hero__desktop-view {
@@ -54,18 +54,57 @@
 
 .hero__frame {
   width: 100%;
-  max-width: 1440px;
+  max-width: 1380px;
   min-height: 100vh;
-  padding: 100px 3.5rem 40px;
+  padding: 95px 3.5rem 35px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
 }
 
-/* Bloco Esquerdo Desktop */
+/* ─── Micro Badge (Pill Tag) ─── */
+.hero__pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.32rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  margin-bottom: 0.85rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+.hero__pill-tag span:not(.hero__pill-dot) {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #FFD56B;
+}
+
+.hero__pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  display: inline-block;
+  animation: heroPulseDot 2s infinite ease-in-out;
+}
+
+@keyframes heroPulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.75; }
+}
+
+/* ─── Bloco Esquerdo Desktop ─── */
 .hero__left-box {
-  flex: 0 0 380px;
+  flex: 0 0 340px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -74,43 +113,47 @@
 
 .hero__intro {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 600;
-  font-size: clamp(1.4rem, 2.1vw, 2.2rem);
-  color: #ffffff;
-  letter-spacing: -0.01em;
-  margin-bottom: 0.15rem;
-  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.7);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: -0.15rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .hero__acai-title {
   font-family: 'Anton', 'Bebas Neue', sans-serif;
   font-weight: 900;
-  font-size: clamp(5.8rem, 9.8vw, 10.5rem);
+  font-size: clamp(5.6rem, 8.8vw, 9.2rem);
   line-height: 0.88;
   letter-spacing: 0.02em;
-  color: #FFB800;
-  text-shadow: 0 6px 30px rgba(0, 0, 0, 0.6);
-  margin-bottom: 1.25rem;
-  margin-left: -4px;
+  background: linear-gradient(135deg, #FFF275 0%, #FFB800 55%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 6px 28px rgba(255, 184, 0, 0.45));
+  margin: 0 0 1rem -3px;
+  text-transform: uppercase;
 }
 
 .hero__left-desc {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 500;
-  font-size: clamp(1rem, 1.3vw, 1.25rem);
-  line-height: 1.42;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+  font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+  max-width: 320px;
 }
 
 .hero__left-desc strong {
-  font-weight: 800;
   color: #ffffff;
+  font-weight: 700;
 }
 
-/* Bloco Direito Desktop */
+/* ─── Bloco Direito Desktop (Compacto, Botão Sempre Visível) ─── */
 .hero__right-box {
-  flex: 0 0 380px;
+  flex: 0 0 340px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -120,51 +163,86 @@
 .hero__cremoso-title {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   font-family: 'Anton', 'Bebas Neue', sans-serif;
   font-weight: 900;
-  font-size: clamp(2.4rem, 4vw, 4.3rem);
-  line-height: 0.96;
+  font-size: clamp(2.3rem, 3.5vw, 3.8rem);
+  line-height: 0.95;
   letter-spacing: 0.01em;
-  color: #ffffff;
-  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
-  margin-bottom: 1.4rem;
+  margin-bottom: 0.85rem;
 }
 
-.hero__highlight-yellow {
-  color: #FFB800;
+.hero__title-white {
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.75);
+}
+
+.hero__title-gradient {
+  background: linear-gradient(135deg, #FFF275 0%, #FFB800 60%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 20px rgba(255, 184, 0, 0.45));
 }
 
 .hero__right-desc {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 500;
-  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
-  margin-bottom: 1.75rem;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+  margin-bottom: 1.4rem;
+  max-width: 320px;
 }
 
+/* Botão CTA com Efeito Shimmer */
 .hero__cta-green {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.9rem 1.85rem;
+  padding: 0.95rem 1.95rem;
   border-radius: 9999px;
-  background-color: #22c55e;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
   color: #ffffff;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   text-decoration: none;
-  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.45);
+  box-shadow: 0 10px 28px rgba(34, 197, 94, 0.48), inset 0 1px 2px rgba(255, 255, 255, 0.35);
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
   white-space: nowrap;
+  overflow: hidden;
 }
 
 .hero__cta-green:hover {
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 35px rgba(34, 197, 94, 0.65);
+  box-shadow: 0 16px 38px rgba(34, 197, 94, 0.65), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.hero__cta-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+}
+
+.hero__cta-green:hover .hero__cta-shimmer {
+  animation: heroShimmerSwipe 0.9s ease-in-out;
+}
+
+@keyframes heroShimmerSwipe {
+  0% { left: -100%; }
+  100% { left: 200%; }
 }
 
 .hero__cta-icon {
@@ -174,7 +252,7 @@
 }
 
 /* ===================================================
-   2. VISÃO MOBILE (Exata à imagem de referência)
+   2. VISÃO MOBILE (100% Contido, Zero Overflow)
    =================================================== */
 
 .hero__mobile-view {
@@ -184,79 +262,123 @@
   width: 100%;
   min-height: 100dvh;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center; /* Centralizado verticalmente na tela */
   align-items: center;
-  padding: 5.8rem 1.4rem 2rem;
+  padding: 5rem 1.25rem 2.2rem;
   box-sizing: border-box;
+  gap: 2rem;
 }
 
-/* ─── Topo do Mobile (Frase Principal) ─── */
+/* ─── Topo do Mobile ─── */
 .hero__mobile-top {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   width: 100%;
-  max-width: 380px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.hero__mobile-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.28rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  margin-bottom: 0.45rem;
+}
+
+.hero__mobile-badge span:not(.hero__badge-dot) {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFD56B;
+}
+
+.hero__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  display: inline-block;
+}
+
+.hero__mobile-title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .hero__mobile-intro {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.01em;
-  margin-bottom: -0.1rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.88);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: -0.15rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
 }
 
-.hero__mobile-title-wrap {
+.hero__mobile-cremoso-wrap {
   position: relative;
   display: inline-block;
-  margin-top: -0.2rem;
+  margin: 0;
 }
 
 .hero__mobile-cremoso {
   font-family: 'Anton', 'Bebas Neue', sans-serif;
   font-weight: 900;
-  font-size: clamp(3.2rem, 14vw, 4.4rem);
+  font-size: clamp(2.9rem, 12.5vw, 3.8rem);
   line-height: 0.95;
-  color: #FFB800;
   letter-spacing: 0.02em;
-  text-shadow: 0 6px 25px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 184, 0, 0.45);
+  background: linear-gradient(135deg, #FFF275 0%, #FFB800 60%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 18px rgba(255, 184, 0, 0.5));
   margin: 0;
+  text-transform: uppercase;
 }
 
-/* 3 Raios Amarelos Decorativos no Canto Superior Direito de CREMOSO */
+/* Raios Dourados no Topo Direito de CREMOSO */
 .hero__mobile-rays {
   position: absolute;
-  top: -8px;
-  right: -24px;
+  top: -6px;
+  right: -20px;
   display: flex;
-  gap: 4px;
+  gap: 3.5px;
   pointer-events: none;
 }
 
 .hero__mobile-ray {
   display: block;
-  width: 3.5px;
+  width: 3px;
   background: #FFB800;
   border-radius: 3px;
-  box-shadow: 0 0 10px rgba(255, 184, 0, 0.8);
+  box-shadow: 0 0 8px rgba(255, 184, 0, 0.85);
 }
 
 .hero__mobile-ray--1 {
-  height: 13px;
+  height: 11px;
   transform: rotate(-30deg);
 }
 
 .hero__mobile-ray--2 {
-  height: 18px;
-  margin-top: -4px;
+  height: 15px;
+  margin-top: -3px;
 }
 
 .hero__mobile-ray--3 {
-  height: 13px;
+  height: 11px;
   transform: rotate(30deg);
 }
 
@@ -264,32 +386,32 @@
   font-family: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
   font-style: italic;
   font-weight: 800;
-  font-size: clamp(1.6rem, 7vw, 2.2rem);
+  font-size: clamp(1.35rem, 5.5vw, 1.8rem);
   color: #ffffff;
   margin-top: -0.25rem;
-  margin-bottom: 0.65rem;
-  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9);
+  margin-bottom: 0.45rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
 }
 
 .hero__mobile-subtitle {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.86rem;
   font-weight: 500;
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.92);
-  max-width: 310px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 280px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
 }
 
-/* ─── Base do Mobile (Os 2 Botões e Dots) ─── */
+/* ─── Base do Mobile (Os 2 Botões de Ação) ─── */
 .hero__mobile-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 360px;
-  gap: 0.85rem;
-  margin-top: auto;
+  max-width: 340px;
+  gap: 0.75rem;
+  margin-top: 0;
 }
 
 /* Botão 1: Peça agora no WhatsApp */
@@ -300,11 +422,11 @@
   justify-content: space-between;
   background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
   color: #ffffff;
-  padding: 0.95rem 1.35rem;
+  padding: 0.9rem 1.3rem;
   border-radius: 9999px;
   text-decoration: none;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 700;
   box-shadow: 0 10px 28px rgba(34, 197, 94, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.4);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -321,8 +443,8 @@
 }
 
 .hero__mobile-chevron {
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
   flex-shrink: 0;
 }
 
@@ -338,11 +460,11 @@
   -webkit-backdrop-filter: blur(12px);
   border: 1.5px solid rgba(255, 255, 255, 0.75);
   color: #ffffff;
-  padding: 0.9rem 1.35rem;
+  padding: 0.85rem 1.3rem;
   border-radius: 9999px;
   text-decoration: none;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.02rem;
+  font-size: 1rem;
   font-weight: 700;
   transition: transform 0.2s ease, background 0.2s ease;
 }
@@ -352,12 +474,15 @@
 }
 
 .hero__mobile-bowl-icon {
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
   flex-shrink: 0;
 }
 
-/* ATIVAÇÃO DO NOVO HERO MOBILE */
+/* ===================================================
+   3. RESPONSIVIDADE DINÂMICA
+   =================================================== */
+
 @media (max-width: 900px) {
   .hero {
     min-height: 100dvh;
@@ -373,13 +498,13 @@
     display: flex !important;
   }
 
-  /* Camada escurecida cinematográfica para contrastar com as frases e botões */
+  /* Camada escurecida cinematográfica para contrastar com as frases e botões no mobile */
   .hero__darken-overlay {
     background: radial-gradient(
       circle at 50% 50%,
-      rgba(16, 2, 28, 0.45) 0%,
-      rgba(14, 1, 24, 0.75) 60%,
-      rgba(8, 0, 15, 0.94) 100%
+      rgba(16, 2, 28, 0.35) 0%,
+      rgba(14, 1, 24, 0.68) 60%,
+      rgba(8, 0, 15, 0.92) 100%
     ) !important;
   }
 }

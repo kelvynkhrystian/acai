@@ -176,10 +176,16 @@
     max-width: none;
     margin: 0;
     border-radius: 20px;
-    padding: 0.6rem 1.2rem;
+    padding: 0.45rem 1rem;
     background: rgba(22, 2, 40, 0.92);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+  }
+
+  .header__logo img {
+    height: 26px !important; /* Exatamente 30%+ menor que o desktop */
+    width: auto;
+    object-fit: contain;
   }
 
   .header__nav,
